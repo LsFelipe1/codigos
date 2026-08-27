@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vereador Rinaldo Luiz — Trabalhando por Bezerros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green: #0E8A46;
+    --green-dark: #0A5F32;
+    --green-light: #E4F5EA;
+    --blue: #1B4FA0;
+    --blue-dark: #123A78;
+    --blue-light: #E8EFFA;
+    --yellow: #FFC531;
+    --yellow-dark: #E0A800;
+    --white: #FFFFFF;
+    --ink: #16211C;
+    --ink-soft: #4E5C55;
+    --bg: #F6F8F5;
+    --line: #DEE6E0;
+    --shadow-hard: 5px 5px 0 rgba(18,33,26,0.9);
+    --shadow-hard-sm: 3px 3px 0 rgba(18,33,26,0.9);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; color:var(--ink); letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  @media (prefers-reduced-motion: reduce){ *{transition-duration:.001ms !important; animation-duration:.001ms !important;} }
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{background:var(--green-dark); color:#DDEFE2; font-size:12.5px;}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center; height:34px;}
+  .topbar-links{display:flex; gap:18px;}
+  .topbar-links a:hover{color:#fff;}
+  .topbar-social{display:flex; gap:10px;}
+  .topbar-social a{width:22px; height:22px; border-radius:50%; background:rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center;}
+  .topbar-social a:hover{background:var(--yellow); color:var(--green-dark);}
+
+  /* ---------- HEADER ---------- */
+  header{background:#fff; border-bottom:3px solid var(--ink); position:sticky; top:0; z-index:50;}
+  .nav{display:flex; align-items:center; justify-content:space-between; height:84px;}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{width:48px; height:48px; border-radius:10px; background:var(--blue); border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Poppins'; font-weight:800; font-size:18px; transform:rotate(-3deg);}
+  .brand-text strong{display:block; font-family:'Poppins'; font-weight:800; font-size:17px; line-height:1.1;}
+  .brand-text span{font-size:11.5px; color:var(--ink-soft); font-weight:600; letter-spacing:.03em;}
+  nav.links{display:flex; gap:6px;}
+  nav.links a{font-size:13.5px; font-weight:700; color:var(--ink); padding:10px 14px; border-radius:8px; text-transform:uppercase; letter-spacing:.02em;}
+  nav.links a:hover{background:var(--green-light); color:var(--green-dark);}
+  nav.links a.active{background:var(--green); color:#fff;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:10px; font-size:13.5px; font-weight:700; border:2.5px solid var(--ink); cursor:pointer; text-transform:uppercase; letter-spacing:.02em; transition:transform .12s ease, box-shadow .12s ease;}
+  .btn-yellow{background:var(--yellow); color:var(--ink); box-shadow:var(--shadow-hard-sm);}
+  .btn-yellow:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(18,33,26,0.9);}
+  .btn-green{background:var(--green); color:#fff; box-shadow:var(--shadow-hard-sm);}
+  .btn-green:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(18,33,26,0.9);}
+  .btn-outline{background:#fff; color:var(--ink); box-shadow:var(--shadow-hard-sm);}
+  .btn-outline:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(18,33,26,0.9);}
+  .btn-sm{padding:9px 16px; font-size:12px;}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer;}
+  .burger span{width:24px; height:3px; background:var(--ink); border-radius:2px;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; overflow:hidden; background:var(--green); border-bottom:3px solid var(--ink);}
+  .hero-shape{position:absolute; right:-90px; top:-90px; width:420px; height:420px; background:var(--yellow); border-radius:50%; opacity:.9;}
+  .hero-shape2{position:absolute; left:-60px; bottom:-120px; width:260px; height:260px; background:var(--blue); border-radius:50%; opacity:.55;}
+  .hero-grid{position:relative; display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:end; padding:64px 0 0;}
+  .hero-copy{padding-bottom:60px;}
+  .hero-tag{display:inline-flex; align-items:center; gap:8px; background:var(--yellow); color:var(--ink); border:2.5px solid var(--ink); padding:7px 14px; border-radius:999px; font-weight:800; font-size:12px; text-transform:uppercase; letter-spacing:.03em; margin-bottom:20px; box-shadow:var(--shadow-hard-sm);}
+  h1.hero-title{font-size:44px; font-weight:800; line-height:1.14; color:#fff;}
+  h1.hero-title span{background:var(--yellow); color:var(--ink); padding:2px 10px; display:inline-block; transform:rotate(-1deg); margin-top:4px;}
+  .hero-sub{margin-top:20px; font-size:16.5px; color:#E4F5EA; max-width:460px; line-height:1.65;}
+  .hero-cta{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
+  .hero-votes{margin-top:34px; display:inline-flex; align-items:center; gap:14px; background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.3); border-radius:12px; padding:12px 18px;}
+  .hero-votes strong{display:block; font-family:'Poppins'; font-weight:800; font-size:22px; color:#fff;}
+  .hero-votes span{font-size:11.5px; color:#CFEBD8; text-transform:uppercase; letter-spacing:.03em;}
+
+  .hero-photo{position:relative; display:flex; align-items:flex-end; justify-content:center; height:100%;}
+  .photo-frame{
+    width:100%; max-width:340px; aspect-ratio:3/4; border-radius:16px 16px 0 0; border:3px solid var(--ink); border-bottom:none;
+    background:linear-gradient(160deg, var(--blue-light), var(--blue) 130%); box-shadow:var(--shadow-hard); position:relative; overflow:hidden;
+  }
+  .photo-frame::after{content:"FOTO DO\A VEREADOR"; white-space:pre; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-family:'Poppins'; font-weight:700; font-size:13px; color:rgba(255,255,255,.75); letter-spacing:.05em;}
+
+  /* ---------- STATS STRIP ---------- */
+  .stats-strip{background:var(--ink); border-bottom:3px solid var(--ink);}
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr);}
+  .stat-cell{padding:26px 20px; text-align:center; border-left:1px solid rgba(255,255,255,.12);}
+  .stat-cell:first-child{border-left:none;}
+  .stat-cell .num{font-family:'Poppins'; font-weight:800; font-size:30px; color:var(--yellow);}
+  .stat-cell .lbl{font-size:12px; color:#C9D6CE; margin-top:6px; text-transform:uppercase; letter-spacing:.03em; font-weight:600;}
+
+  /* ---------- SECTIONS ---------- */
+  .section{padding:76px 0;}
+  .section-head{margin-bottom:38px; max-width:560px;}
+  .kicker{display:inline-block; background:var(--ink); color:var(--yellow); font-weight:800; font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; padding:6px 12px; border-radius:6px; margin-bottom:14px;}
+  .section-head h2{font-size:29px; font-weight:800;}
+  .section-head p{margin-top:10px; color:var(--ink-soft); font-size:14.5px;}
+  .section-head-row{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;}
+
+  /* ---------- BANDEIRAS / PAUTAS ---------- */
+  .flags-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .flag-card{background:#fff; border:2.5px solid var(--ink); border-radius:14px; padding:22px; box-shadow:var(--shadow-hard-sm); transition:transform .12s ease, box-shadow .12s ease;}
+  .flag-card:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(18,33,26,0.9);}
+  .flag-ic{width:42px; height:42px; border-radius:10px; border:2.5px solid var(--ink); display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+  .flag-card:nth-child(4n+1) .flag-ic{background:var(--green-light); color:var(--green-dark);}
+  .flag-card:nth-child(4n+2) .flag-ic{background:var(--blue-light); color:var(--blue-dark);}
+  .flag-card:nth-child(4n+3) .flag-ic{background:#FFF6DC; color:var(--yellow-dark);}
+  .flag-card:nth-child(4n+4) .flag-ic{background:var(--green-light); color:var(--green-dark);}
+  .flag-card h4{font-size:15px; font-weight:700; margin-bottom:8px;}
+  .flag-card p{font-size:13px; color:var(--ink-soft); line-height:1.6;}
+
+  /* ---------- PEDIDOS ---------- */
+  .section-blue{background:var(--blue); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink);}
+  .section-blue .kicker{background:var(--yellow); color:var(--ink);}
+  .section-blue h2, .section-blue p{color:#fff;}
+  .section-blue p{color:#DCE7F8;}
+  .req-toolbar{display:flex; gap:10px; margin-bottom:26px; flex-wrap:wrap;}
+  .chip{padding:9px 16px; border-radius:999px; border:2px solid #fff; background:transparent; color:#fff; font-size:12.5px; font-weight:700; cursor:pointer; text-transform:uppercase;}
+  .chip.active{background:var(--yellow); color:var(--ink); border-color:var(--ink);}
+  .req-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .req-card{background:#fff; border:2.5px solid var(--ink); border-radius:14px; padding:20px; box-shadow:var(--shadow-hard-sm); display:flex; flex-direction:column; gap:12px;}
+  .req-top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start;}
+  .badge{padding:5px 11px; border-radius:999px; font-size:11px; font-weight:800; text-transform:uppercase; border:2px solid var(--ink);}
+  .badge-done{background:var(--green-light); color:var(--green-dark);}
+  .badge-progress{background:#FFF6DC; color:var(--yellow-dark);}
+  .badge-review{background:var(--blue-light); color:var(--blue-dark);}
+  .req-card h4{font-size:15px; font-weight:700; line-height:1.35;}
+  .req-tags{display:flex; gap:7px; flex-wrap:wrap; font-size:11.5px; color:var(--ink-soft); font-weight:600;}
+  .req-tags span{background:var(--bg); border:1.5px solid var(--line); padding:4px 9px; border-radius:7px;}
+  .req-card p.desc{font-size:12.8px; color:var(--ink-soft); line-height:1.6; flex-grow:1;}
+  .req-foot{display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:2px dashed var(--line);}
+  .proto{font-size:11px; color:var(--ink-soft); font-weight:700;}
+  .link-btn{font-size:12.8px; font-weight:800; color:var(--blue); text-transform:uppercase;}
+  .section-footer-cta{display:flex; justify-content:center; margin-top:34px;}
+
+  /* ---------- BLOG ---------- */
+  .news-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:22px;}
+  .news-side{display:flex; flex-direction:column; gap:18px;}
+  .card{background:#fff; border:2.5px solid var(--ink); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-hard-sm); transition:transform .12s ease, box-shadow .12s ease;}
+  .card:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(18,33,26,0.9);}
+  .news-feat .thumb{height:220px; background:linear-gradient(150deg, var(--green-light), var(--blue-light));}
+  .news-feat .body{padding:24px;}
+  .news-small{display:flex; gap:14px; padding:14px;}
+  .news-small .thumb{width:88px; height:88px; border-radius:10px; border:2px solid var(--ink); flex-shrink:0; background:linear-gradient(150deg, var(--yellow), var(--green-light));}
+  .news-small .body{padding:0;}
+  .cat-pill{display:inline-block; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; color:var(--ink); background:var(--yellow); padding:4px 10px; border-radius:999px; margin-bottom:9px;}
+  .card h3{font-size:16.5px; font-weight:700; line-height:1.35; margin-bottom:6px;}
+  .news-small h3{font-size:13.8px;}
+  .card-date{font-size:11.5px; color:var(--ink-soft); font-weight:700; margin-top:8px; text-transform:uppercase;}
+  .card p.excerpt{font-size:13px; color:var(--ink-soft); line-height:1.6;}
+
+  /* ---------- CTA STRIP ---------- */
+  .cta-strip{background:var(--yellow); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); padding:52px 0;}
+  .cta-inner{display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;}
+  .cta-inner h3{font-size:24px; font-weight:800; max-width:480px;}
+  .cta-inner p{font-size:13.5px; color:#4A3B00; margin-top:6px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:#B9C4BD; padding:56px 0 26px;}
+  .foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:36px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,.12);}
+  .foot-brand{display:flex; gap:12px; align-items:flex-start;}
+  .foot-brand .brand-mark{background:var(--yellow); color:var(--ink);}
+  .foot-brand strong{font-family:'Poppins'; color:#fff; font-size:15.5px;}
+  .foot-brand p{font-size:12.8px; margin-top:10px; line-height:1.7; max-width:260px;}
+  footer h5{font-family:'Poppins'; color:#fff; font-size:12.5px; letter-spacing:.04em; text-transform:uppercase; margin-bottom:15px; font-weight:700;}
+  footer ul{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  footer a{font-size:13px; color:#A9B6AE;}
+  footer a:hover{color:var(--yellow);}
+  .foot-bottom{display:flex; justify-content:space-between; padding-top:22px; font-size:11.8px; color:#7E8B83; flex-wrap:wrap; gap:8px;}
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .wa-float{
+    position:fixed; bottom:22px; right:22px; width:58px; height:58px; border-radius:50%; background:var(--green);
+    border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-hard-sm); z-index:80;
+  }
+  .wa-float:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(18,33,26,0.9);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    nav.links{display:none;}
+    .burger{display:flex;}
+    .hero-grid{grid-template-columns:1fr; padding-top:44px;}
+    .hero-photo{order:-1; max-width:260px; margin:0 auto;}
+    .hero-copy{padding-bottom:40px; text-align:left;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stat-cell:nth-child(3){border-left:none;}
+    .flags-grid{grid-template-columns:repeat(2,1fr);}
+    .news-grid{grid-template-columns:1fr;}
+    .req-grid{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    h1.hero-title{font-size:34px;}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 20px;}
+    .topbar-links{display:none;}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+    .flags-grid{grid-template-columns:1fr;}
+    .req-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .section{padding:52px 0;}
+    h1.hero-title{font-size:28px;}
+    .cta-inner{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-links">
+      <a href="#">gabinete@vereadorgabriel.com.br</a>
+      <a href="#">(81) 99999-0000</a>
+    </div>
+    <div class="topbar-social">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="Facebook">FB</a>
+      <a href="#" aria-label="WhatsApp">WA</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="brand-mark">GC</div>
+      <div class="brand-text"><strong>Gabriel Costa</strong><span>VEREADOR DE BEZERROS</span></div>
+    </div>
+    <nav class="links">
+      <a href="#" class="active">Início</a>
+      <a href="#pedidos">Pedidos</a>
+      <a href="#pautas">Pautas</a>
+      <a href="#noticias">Blog</a>
+      <a href="#">Contato</a>
+    </nav>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <a href="#" class="btn btn-outline btn-sm">Painel</a>
+      <a href="#" class="btn btn-yellow btn-sm">Fazer pedido</a>
+    </div>
+    <button class="burger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-shape"></div>
+  <div class="hero-shape2"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="hero-tag">● Mandato aberto à população</span>
+      <h1 class="hero-title">A voz do nosso bairro <span>dentro da Câmara</span></h1>
+      <p class="hero-sub">Cada solicitação registrada é acompanhada até a solução. Veja o andamento dos pedidos do seu bairro e cobre resultados com transparência.</p>
+      <div class="hero-cta">
+        <a href="#pedidos" class="btn btn-yellow">Consultar pedidos</a>
+        <a href="#" class="btn btn-outline" style="background:transparent; color:#fff; border-color:#fff;">Fale comigo</a>
+      </div>
+      <div class="hero-votes">
+        <div><strong>1.380</strong><span>Votos em 2024</span></div>
+      </div>
+    </div>
+    <div class="hero-photo"><div class="photo-frame"></div></div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="wrap stats-grid">
+    <div class="stat-cell"><div class="num">2.481</div><div class="lbl">Pedidos cadastrados</div></div>
+    <div class="stat-cell"><div class="num">1.562</div><div class="lbl">Pedidos concluídos</div></div>
+    <div class="stat-cell"><div class="num">614</div><div class="lbl">Em andamento</div></div>
+    <div class="stat-cell"><div class="num">18</div><div class="lbl">Bairros atendidos</div></div>
+  </div>
+</div>
+
+<section class="section" id="pautas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Bandeiras que represento</span>
+      <h2>As pautas do mandato</h2>
+      <p>Temas que guiam meu trabalho na Câmara e no dia a dia com a população.</p>
+    </div>
+    <div class="flags-grid">
+      <div class="flag-card">
+        <div class="flag-ic">🏪</div>
+        <h4>Comércio local</h4>
+        <p>Apoio ao pequeno empreendedor e geração de emprego no bairro.</p>
+      </div>
+      <div class="flag-card">
+        <div class="flag-ic">🏥</div>
+        <h4>Saúde pública</h4>
+        <p>Mais estrutura e agilidade no atendimento das UBS da cidade.</p>
+      </div>
+      <div class="flag-card">
+        <div class="flag-ic">🎓</div>
+        <h4>Educação</h4>
+        <p>Valorização dos professores e melhores condições nas escolas.</p>
+      </div>
+      <div class="flag-card">
+        <div class="flag-ic">🌳</div>
+        <h4>Meio ambiente</h4>
+        <p>Áreas verdes preservadas e cidade mais limpa para todos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-blue" id="pedidos">
+  <div class="wrap">
+    <div class="section-head-row" style="margin-bottom:30px;">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="kicker">Acompanhamento público</span>
+        <h2>Pedidos recentes</h2>
+        <p>Solicitações registradas pela população nos últimos dias.</p>
+      </div>
+    </div>
+    <div class="req-toolbar">
+      <span class="chip active">Todos</span>
+      <span class="chip">Iluminação</span>
+      <span class="chip">Pavimentação</span>
+      <span class="chip">Saúde</span>
+    </div>
+    <div class="req-grid">
+      <div class="req-card">
+        <div class="req-top"><h4>Buraco na Rua das Palmeiras precisa de reparo</h4><span class="badge badge-progress">Andamento</span></div>
+        <div class="req-tags"><span>Pavimentação</span><span>Boa Vista</span><span>02/08/2026</span></div>
+        <p class="desc">Morador relata risco a ciclistas próximo ao nº 340. Equipe de obras já foi acionada.</p>
+        <div class="req-foot"><span class="proto">#2026.0089221</span><a href="#" class="link-btn">Ver detalhes →</a></div>
+      </div>
+      <div class="req-card">
+        <div class="req-top"><h4>Poste apagado deixa praça sem iluminação</h4><span class="badge badge-review">Em análise</span></div>
+        <div class="req-tags"><span>Iluminação</span><span>Jd. das Flores</span><span>01/08/2026</span></div>
+        <p class="desc">Solicitação encaminhada à concessionária para vistoria técnica no local indicado.</p>
+        <div class="req-foot"><span class="proto">#2026.0089198</span><a href="#" class="link-btn">Ver detalhes →</a></div>
+      </div>
+      <div class="req-card">
+        <div class="req-top"><h4>Poda de árvores na Praça Central</h4><span class="badge badge-done">Concluído</span></div>
+        <div class="req-tags"><span>Meio ambiente</span><span>Centro</span><span>28/07/2026</span></div>
+        <p class="desc">Serviço realizado pela equipe de paisagismo em parceria com o gabinete.</p>
+        <div class="req-foot"><span class="proto">#2026.0088807</span><a href="#" class="link-btn">Ver detalhes →</a></div>
+      </div>
+    </div>
+    <div class="section-footer-cta"><a href="#" class="btn btn-yellow">Ver todos os pedidos</a></div>
+  </div>
+</section>
+
+<section class="section" id="noticias">
+  <div class="wrap">
+    <div class="section-head-row" style="margin-bottom:30px;">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="kicker">Blog</span>
+        <h2>Últimas notícias</h2>
+        <p>Atualizações do mandato e ações realizadas no bairro.</p>
+      </div>
+      <a href="#" class="btn btn-outline btn-sm">Ver todas</a>
+    </div>
+    <div class="news-grid">
+      <a href="#" class="card news-feat">
+        <div class="thumb"></div>
+        <div class="body">
+          <span class="cat-pill">Infraestrutura</span>
+          <h3>Nova ciclovia da Av. Beira-Rio é entregue após aprovação de emenda</h3>
+          <p class="excerpt">Obra atende mais de 40 solicitações registradas pelos moradores da região.</p>
+          <div class="card-date">04 ago 2026</div>
+        </div>
+      </a>
+      <div class="news-side">
+        <a href="#" class="card news-small">
+          <div class="thumb"></div>
+          <div class="body"><span class="cat-pill">Saúde</span><h3>UBS do Jardim das Flores amplia horário de atendimento</h3><div class="card-date">29 jul 2026</div></div>
+        </a>
+        <a href="#" class="card news-small">
+          <div class="thumb"></div>
+          <div class="body"><span class="cat-pill">Prestação de contas</span><h3>Balanço do primeiro semestre: veja o que já foi entregue</h3><div class="card-date">21 jul 2026</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <div class="wrap cta-inner">
+    <div>
+      <h3>Tem uma demanda para o seu bairro?</h3>
+      <p>Registre sua solicitação e acompanhe cada etapa até a solução.</p>
+    </div>
+    <a href="#" class="btn btn-green" style="background:var(--ink); color:#fff;">Fazer solicitação</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand-mark">GC</div>
+        <div>
+          <strong>Gabriel Costa</strong>
+          <p>Trabalhando por todos os cidadãos de Bezerros, com transparência e proximidade com a população.</p>
+        </div>
+      </div>
+      <div><h5>Portal</h5><ul><li><a href="#">Início</a></li><li><a href="#">Pedidos</a></li><li><a href="#">Blog</a></li><li><a href="#">Pautas</a></li></ul></div>
+      <div><h5>Institucional</h5><ul><li><a href="#">Contato</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Área administrativa</a></li></ul></div>
+      <div><h5>Contato</h5><ul><li><a href="#">Rua Dr. José Maria, 411</a></li><li><a href="#">Bezerros - PE</a></li><li><a href="#">(81) 99999-0000</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Gabriel Costa. Todos os direitos reservados.</span>
+      <span>Protótipo de layout — dados fictícios</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="wa-float" aria-label="Falar no WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.87 9.87 0 004.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.1c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.66-.6-2.92-1.26-4.82-4.2-4.97-4.4-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.26-.29.58-.36.77-.36h.55c.18 0 .42-.03.65.5.24.56.8 1.95.87 2.09.07.14.11.3.02.49-.09.19-.14.3-.28.46-.14.16-.29.36-.42.48-.14.13-.28.28-.13.55.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.26.13.44.19.5.3.06.11.06.63-.18 1.32z"/></svg>
+</a>
+
+</body>
+</html>

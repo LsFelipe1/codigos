@@ -1,0 +1,68 @@
+const news = [
+  {
+    id: "1",
+    image: "../src/assets/newsimage/images.jpeg",
+    title: "Novo hospital",
+    tag: "Saúde",
+    date: "09 ago 26",
+    description: "Novo hospital construído em Bezerros.",
+  },
+  {
+    id: "2",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 ago 26",
+    description: "Praça totalmente revitalizada.",
+  },
+    {
+    id: "3",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 JUL 26",
+    description: "Praça totalmente revitalizada.",
+  },
+    {
+    id: "4",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 ago 26",
+    description: "Praça totalmente revitalizada.",
+  },
+    {
+    id: "5",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 ago 26",
+    description: "Praça totalmente revitalizada.",
+  },
+    {
+    id: "6",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 ago 26",
+    description: "Praça totalmente revitalizada.",
+  },
+    {
+    id: "7",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 ago 26",
+    description: "Praça totalmente revitalizada.",
+  },
+    {
+    id: "8",
+    image: "",
+    title: "Nova praça",
+    tag: "Infraestrutura",
+    date: "12 ago 26",
+    description: "Praça totalmente revitalizada.",
+  },
+];
+
+export default news;

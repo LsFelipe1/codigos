@@ -1,0 +1,92 @@
+@import url('https://googleapis.com');
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap');
+
+:root {
+  /* Cores Principais Neo-Brutalistas */
+  --green: #0E8A46;
+  --green-dark: #0A5F32;
+  --green-light: #E4F5EA;
+
+  --blue: #1B4FA0;
+  --blue-dark: #123A78;
+  --blue-light: #E8EFFA;
+
+  --yellow: #FFC531;
+  --yellow-dark: #E0A800;
+
+  /* Neutras & Estrutura */
+  --white: #FFFFFF;
+  --ink: #16211C;         /* Cor das bordas e texto principal */
+  --ink-soft: #4E5C55;    /* Subtítulos */
+  --bg: #F6F8F5;          /* Fundo suave da aplicação */
+  --line: #DEE6E0;
+
+  /* Sombras Duras Neo-Brutalistas */
+  --shadow-hard: 5px 5px 0px rgba(18, 33, 26, 0.9);
+  --shadow-hard-sm: 3px 3px 0px rgba(18, 33, 26, 0.9);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, var(--navy) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--navy) 1px, transparent 1px);
+  background-size: 70px 70px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(40px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes slowPulse {
+  0%, 100% { transform: scale(1); opacity: .04; }
+  50% { transform: scale(1.15); opacity: .08; }
+}
+
+@keyframes progress {
+  0% { transform: scaleY(0); }
+  65%, 100% { transform: scaleY(1); }
+}
+
+@keyframes scrollLine {
+  0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
