@@ -3,10 +3,62 @@ import { Link } from "react-router-dom";
 export default function Landing() {
   return (
     <section className="relative overflow-hidden bg-[#0E8A46] border-b-[3px] border-[#16211C] py-16 lg:py-24">
-      {/* SHAPES GEOMÉTRICOS DE FUNDO */}
-      <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#FFC531] opacity-90 border-[3px] border-[#16211C]" />
-      <div className="pointer-events-none absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#1B4FA0] opacity-60 border-[3px] border-[#16211C]" />
+      
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
+        <svg
+          className="h-full w-full stroke-white/40 [mask-:radial-gradient(100%_100%_at_top_center,white,transparent)]"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="originkit-grid"
+              width={40}
+              height={40}
+              x="50%"
+              y={-1}
+              patternUnits="userSpaceOnUse"
+            >
+              <path d="M.5 40V.5H40" fill="none" strokeWidth="1" />
+            </pattern>
+          </defs>
 
+          {/* Grade de fundo */}
+          <rect width="100%" height="100%" fill="url(#originkit-grid)" />
+
+          {/* Feixes e quadros acesos animados */}
+          <svg x="50%" y={-1} className="overflow-visible fill-white/20">
+            <rect
+              width="39"
+              height="39"
+              x="-40"
+              y="80"
+              className="animate-pulse fill-[#FFC531] opacity-75"
+            />
+            <rect
+              width="39"
+              height="39"
+              x="160"
+              y="120"
+              className="animate-ping fill-[#1B4FA0] opacity-50 duration-1000"
+            />
+            <rect
+              width="39"
+              height="39"
+              x="-200"
+              y="200"
+              className="animate-pulse fill-[#FFC531] opacity-60"
+            />
+          </svg>
+        </svg>
+      </div>
+
+      {/* SHAPES GEOMÉTRICOS DE FUNDO (MANTIDOS E INTEGRADOS À GRADE) */}
+      <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#FFC531] opacity-80 border-[3px] border-[#16211C] blur-xs" />
+      <div className="pointer-events-none absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#1B4FA0] opacity-50 border-[3px] border-[#16211C] blur-xs" />
+
+      {/* ------------------------------------------------------------- */}
+      {/* CONTEÚDO PRINCIPAL (Z-INDEX 10 PARA FICAR SOBRE A ANIMAÇÃO)    */}
+      {/* ------------------------------------------------------------- */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
 

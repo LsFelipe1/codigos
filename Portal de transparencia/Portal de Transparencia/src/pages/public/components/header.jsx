@@ -56,7 +56,7 @@ export default function Header() {
           {/* LOGO NEO-BRUTALISTA COM ANIMACAO HOVER */}
           <Link to="/" className="group flex items-center gap-3">
             <div
-              className={`flex -rotate-3 items-center justify-center rounded-xl border-[3px] border-[#16211C] bg-[#1B4FA0] font-black text-white shadow-[3px_3px_0px_0px_rgba(22,33,28,1)] transition-all duration-300 group-hover:scale-105 group-hover:-rotate-6 group-hover:bg-[#0E8A46] ${
+              className={`flex text-xl -rotate-3 items-center justify-center rounded-xl border-[3px] border-[#16211C] bg-[#1B4FA0] font-black text-white shadow-[3px_3px_0px_0px_rgba(22,33,28,1)] transition-all duration-300 group-hover:scale-105 group-hover:-rotate-6 group-hover:bg-[#0E8A46] ${
                 scrolled ? "h-9 w-9 text-xs" : "h-11 w-11 text-base"
               }`}
             >
