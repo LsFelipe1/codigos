@@ -111,3 +111,13 @@ export async function saveSettings(settingsData) {
   if (!response.ok) throw new Error("Erro ao salvar configurações.");
   return await response.json();
 }
+
+export async function deleteRequest(id) {
+  const response = await fetch(`${API_BASE_URL}/delete_request.php`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+  if (!response.ok) throw new Error("Erro ao excluir solicitação.");
+  return await response.json();
+}

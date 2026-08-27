@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Toast from "../../../../components/UI/toast";
 import { fetchNewsById, updateNews, fetchNewsHistory } from "../../../../src/services/api";
 
 export default function EditPost() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     title: "",
@@ -107,7 +106,7 @@ export default function EditPost() {
         {/* FORMULÁRIO DE EDIÇÃO */}
         <form onSubmit={handleSubmit} className="space-y-6 lg:col-span-2">
           <section className="rounded-xl border-2 border-[#0F172A] bg-white p-6 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] space-y-4">
-            <h2 className="text-sm font-black uppercase tracking-wider text-[#0F172A]">Conteúdo Principal</h2>
+            <h2 className="text-xs font-black uppercase tracking-wider text-[#0F172A]">Conteúdo Principal</h2>
 
             <div>
               <label className="mb-1 block font-mono text-[10px] font-bold uppercase text-[#64748B]">

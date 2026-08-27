@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import mockRequests from "../../../../modules/request/data/request";
-import { fetchRequests } from "../../../../src/services/api";
+import { fetchRequests, deleteRequest } from "../../../../src/services/api";
+import Toast from "../../../../components/UI/toast";
 
 const statusStyles = {
   "Recebido": "bg-[#F1F5F9] text-[#334155] border-[#0F172A]",
@@ -21,26 +22,49 @@ export default function RequestsList() {
   const [period, setPeriod] = useState("todos");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    async function loadAdminData() {
-      try {
-        setIsLoading(true);
-        const data = await fetchRequests();
-        if (Array.isArray(data) && data.length > 0) {
-          setRequestsList(data);
-        } else {
-          setRequestsList(mockRequests);
-        }
-      } catch (err) {
-        setRequestsList(mockRequests);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
     loadAdminData();
   }, []);
+
+  async function loadAdminData() {
+    try {
+      setIsLoading(true);
+      const data = await fetchRequests();
+      if (Array.isArray(data) && data.length > 0) {
+        setRequestsList(data);
+      } else {
+        setRequestsList(mockRequests);
+      }
+    } catch (err) {
+      setRequestsList(mockRequests);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleDelete(id, protocol) {
+    const confirmDelete = window.confirm(
+      `Tem certeza que deseja excluir permanentemente o pedido ${protocol}?`
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await deleteRequest(id);
+      setRequestsList((prev) => prev.filter((item) => item.id !== id));
+      setToast({
+        message: `Solicitação ${protocol} excluída com sucesso.`,
+        type: "success",
+      });
+    } catch (err) {
+      setToast({
+        message: "Falha ao excluir pedido.",
+        type: "error",
+      });
+    }
+  }
 
   const filteredRequests = useMemo(() => {
     return requestsList.filter((item) => {
@@ -91,7 +115,7 @@ export default function RequestsList() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-3 sm:px-0">
       {/* CABEÇALHO */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
@@ -108,17 +132,17 @@ export default function RequestsList() {
 
         <Link
           to="/admin/pedidos/novo"
-          className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[#0F172A] bg-[#2563EB] px-5 py-3 font-mono text-xs font-bold uppercase text-white shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border-2 border-[#0F172A] bg-[#2563EB] px-5 py-3 font-mono text-xs font-bold uppercase text-white shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
         >
           <span>＋</span>
           <span>Novo Pedido</span>
         </Link>
       </div>
 
-      {/* FILTROS */}
-      <div className="rounded-xl border-2 border-[#0F172A] bg-white p-5 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] space-y-4">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <div className="md:col-span-2">
+      {/* FILTROS RESPONSIVOS */}
+      <div className="rounded-xl border-2 border-[#0F172A] bg-white p-4 sm:p-5 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] space-y-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="sm:col-span-2">
             <label className="mb-1 block font-mono text-[10px] font-bold uppercase text-[#64748B]">
               Pesquisar
             </label>
@@ -127,7 +151,7 @@ export default function RequestsList() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Título, bairro, protocolo..."
-              className="w-full rounded-lg border-2 border-[#0F172A] bg-[#F8FAFC] px-4 py-2 font-mono text-xs font-bold text-[#0F172A] outline-none transition focus:bg-white"
+              className="w-full rounded-lg border-2 border-[#0F172A] bg-[#F8FAFC] px-3.5 py-2 font-mono text-xs font-bold text-[#0F172A] outline-none transition focus:bg-white"
             />
           </div>
 
@@ -138,7 +162,7 @@ export default function RequestsList() {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full cursor-pointer rounded-lg border-2 border-[#0F172A] bg-[#F8FAFC] px-3.5 py-2 font-mono text-xs font-bold text-[#0F172A] outline-none transition focus:bg-white"
+              className="w-full cursor-pointer rounded-lg border-2 border-[#0F172A] bg-[#F8FAFC] px-3 py-2 font-mono text-xs font-bold text-[#0F172A] outline-none transition focus:bg-white"
             >
               <option>Todos</option>
               <option>Recebido</option>
@@ -157,7 +181,7 @@ export default function RequestsList() {
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
-              className="w-full cursor-pointer rounded-lg border-2 border-[#0F172A] bg-[#F8FAFC] px-3.5 py-2 font-mono text-xs font-bold text-[#0F172A] outline-none transition focus:bg-white"
+              className="w-full cursor-pointer rounded-lg border-2 border-[#0F172A] bg-[#F8FAFC] px-3 py-2 font-mono text-xs font-bold text-[#0F172A] outline-none transition focus:bg-white"
             >
               <option>Todos</option>
               <option>Baixa</option>
@@ -168,10 +192,12 @@ export default function RequestsList() {
           </div>
         </div>
 
-        {/* PERÍODO DE FILTRAGEM */}
-        <div className="border-t-2 border-dashed border-[#E2E8F0] pt-4 flex flex-col gap-3 sm:flex-row sm:items-center justify-between">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] font-bold uppercase text-[#64748B] mr-1">Período:</span>
+        {/* BOTOES DE PERIODO */}
+        <div className="border-t-2 border-dashed border-[#E2E8F0] pt-4 flex flex-col gap-3 md:flex-row md:items-center justify-between">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span className="font-mono text-[10px] font-bold uppercase text-[#64748B] w-full sm:w-auto mb-1 sm:mb-0">
+              Período:
+            </span>
 
             {[
               ["todos", "Todo o período"],
@@ -184,7 +210,7 @@ export default function RequestsList() {
                 key={key}
                 type="button"
                 onClick={() => setPeriod(key)}
-                className={`rounded-lg border-2 px-3 py-1 font-mono text-[10px] font-bold uppercase transition cursor-pointer ${
+                className={`rounded-lg border-2 px-2.5 py-1 font-mono text-[10px] font-bold uppercase transition cursor-pointer ${
                   period === key
                     ? "border-[#0F172A] bg-[#0F172A] text-white shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]"
                     : "border-[#0F172A] bg-[#F8FAFC] text-[#0F172A] hover:bg-[#EFF6FF]"
@@ -198,14 +224,14 @@ export default function RequestsList() {
           <button
             type="button"
             onClick={clearFilters}
-            className="font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline self-end sm:self-auto cursor-pointer"
+            className="font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline self-start md:self-auto cursor-pointer"
           >
             Limpar filtros
           </button>
         </div>
       </div>
 
-      {/* TABELA DE RESULTADOS */}
+      {/* ESTADO DE CARREGAMENTO */}
       {isLoading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="flex items-center gap-3 rounded-xl border-2 border-[#0F172A] bg-white p-5 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
@@ -214,81 +240,154 @@ export default function RequestsList() {
           </div>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border-2 border-[#0F172A] bg-white shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-175 text-left border-collapse">
-              <thead className="border-b-2 border-[#0F172A] bg-[#F8FAFC]">
-                <tr>
-                  <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                    Solicitação / Protocolo
-                  </th>
-                  <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                    Localização
-                  </th>
-                  <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                    Status
-                  </th>
-                  <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                    Data de Abertura
-                  </th>
-                  <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                    Ação
-                  </th>
-                </tr>
-              </thead>
+        <>
+          {/* LAYOUT MOBILE & TABLET (CARDS) - Visível até 'md' */}
+          <div className="grid grid-cols-1 gap-4 md:hidden">
+            {filteredRequests.map((item) => (
+              <div
+                key={item.id}
+                className="rounded-xl border-2 border-[#0F172A] bg-white p-4 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] space-y-3"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <h3 className="text-sm font-black text-[#0F172A] leading-snug">
+                      {item.title}
+                    </h3>
+                    <p className="mt-0.5 font-mono text-[10px] font-bold text-[#64748B]">
+                      {item.protocol}
+                    </p>
+                  </div>
 
-              <tbody className="divide-y-2 divide-[#E2E8F0]">
-                {filteredRequests.map((item) => (
-                  <tr key={item.id} className="transition duration-150 hover:bg-[#EFF6FF]">
-                    <td className="px-5 py-3.5">
-                      <p className="text-xs font-black text-[#0F172A] line-clamp-1">
-                        {item.title}
-                      </p>
-                      <p className="mt-0.5 font-mono text-[10px] font-bold text-[#64748B]">
-                        {item.protocol}
-                      </p>
-                    </td>
+                  <span
+                    className={`inline-block rounded-md border-2 px-2 py-0.5 font-mono text-[9px] font-black uppercase shrink-0 ${
+                      statusStyles[item.status] || "bg-white text-[#0F172A] border-[#0F172A]"
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+                </div>
 
-                    <td className="px-5 py-3.5">
-                      <p className="text-xs font-bold text-[#0F172A]">{item.district}</p>
-                      <p className="text-[11px] text-[#64748B] line-clamp-1">{item.street}</p>
-                    </td>
+                <div className="grid grid-cols-2 gap-2 border-y border-dashed border-[#E2E8F0] py-2 text-xs">
+                  <div>
+                    <p className="font-mono text-[9px] font-bold uppercase text-[#64748B]">Bairro / Rua</p>
+                    <p className="font-bold text-[#0F172A] truncate">{item.district}</p>
+                    <p className="text-[10px] text-[#64748B] truncate">{item.street}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono text-[9px] font-bold uppercase text-[#64748B]">Data</p>
+                    <p className="font-mono text-xs font-bold text-[#0F172A]">{item.date}</p>
+                  </div>
+                </div>
 
-                    <td className="px-5 py-3.5">
-                      <span
-                        className={`inline-block rounded-md border-2 px-2.5 py-0.5 font-mono text-[10px] font-black uppercase ${
-                          statusStyles[item.status] || "bg-white text-[#0F172A] border-[#0F172A]"
-                        }`}
-                      >
-                        {item.status}
-                      </span>
-                    </td>
+                <div className="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(item.id, item.protocol)}
+                    className="rounded-md border border-red-600 bg-red-50 px-2.5 py-1.5 font-mono text-[10px] font-bold uppercase text-red-700 transition hover:bg-red-600 hover:text-white cursor-pointer"
+                  >
+                    Excluir
+                  </button>
 
-                    <td className="px-5 py-3.5 font-mono text-xs font-bold text-[#64748B]">
-                      {item.date}
-                    </td>
+                  <Link
+                    to={`/admin/pedidos/${item.id}`}
+                    className="inline-flex items-center gap-1 rounded-md border-2 border-[#0F172A] bg-[#2563EB] px-3 py-1.5 font-mono text-[10px] font-bold uppercase text-white shadow-[1.5px_1.5px_0px_0px_rgba(15,23,42,1)]"
+                  >
+                    Gerenciar →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
 
-                    <td className="px-5 py-3.5">
-                      <Link
-                        to={`/admin/pedidos/${item.id}`}
-                        className="font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline"
-                      >
-                        Gerenciar →
-                      </Link>
-                    </td>
+          {/* LAYOUT DESKTOP (TABELA) - Visível a partir de 'md' */}
+          <div className="hidden md:block overflow-hidden rounded-xl border-2 border-[#0F172A] bg-white shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead className="border-b-2 border-[#0F172A] bg-[#F8FAFC]">
+                  <tr>
+                    <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                      Solicitação / Protocolo
+                    </th>
+                    <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                      Localização
+                    </th>
+                    <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                      Status
+                    </th>
+                    <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                      Data
+                    </th>
+                    <th className="px-5 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B] text-right">
+                      Ações
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody className="divide-y-2 divide-[#E2E8F0]">
+                  {filteredRequests.map((item) => (
+                    <tr key={item.id} className="transition duration-150 hover:bg-[#EFF6FF]">
+                      <td className="px-5 py-3.5">
+                        <p className="text-xs font-black text-[#0F172A] line-clamp-1">
+                          {item.title}
+                        </p>
+                        <p className="mt-0.5 font-mono text-[10px] font-bold text-[#64748B]">
+                          {item.protocol}
+                        </p>
+                      </td>
+
+                      <td className="px-5 py-3.5">
+                        <p className="text-xs font-bold text-[#0F172A]">{item.district}</p>
+                        <p className="text-[11px] text-[#64748B] line-clamp-1">{item.street}</p>
+                      </td>
+
+                      <td className="px-5 py-3.5">
+                        <span
+                          className={`inline-block rounded-md border-2 px-2.5 py-0.5 font-mono text-[10px] font-black uppercase ${
+                            statusStyles[item.status] || "bg-white text-[#0F172A] border-[#0F172A]"
+                          }`}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
+
+                      <td className="px-5 py-3.5 font-mono text-xs font-bold text-[#64748B]">
+                        {item.date}
+                      </td>
+
+                      <td className="px-5 py-3.5 text-right">
+                        <div className="flex items-center justify-end gap-3">
+                          <Link
+                            to={`/admin/pedidos/${item.id}`}
+                            className="font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline"
+                          >
+                            Gerenciar →
+                          </Link>
+
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(item.id, item.protocol)}
+                            className="rounded-md border border-red-600 bg-red-50 px-2 py-1 font-mono text-[10px] font-bold uppercase text-red-700 transition hover:bg-red-600 hover:text-white cursor-pointer"
+                          >
+                            Excluir
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {filteredRequests.length === 0 && (
-            <div className="p-12 text-center font-mono text-xs font-bold text-[#64748B]">
+            <div className="rounded-xl border-2 border-[#0F172A] bg-white p-12 text-center font-mono text-xs font-bold text-[#64748B] shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]">
               Nenhum pedido encontrado.
             </div>
           )}
-        </div>
+        </>
       )}
+
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }

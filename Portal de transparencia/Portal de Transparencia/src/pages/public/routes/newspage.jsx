@@ -234,7 +234,7 @@ export default function NewsPage() {
   );
 }
 
-{/* PLACEHOLDER ESTILIZADO DE IMAGEM */}
+{/* PLACEHOLDER DE IMAGEM */}
 function ImagePlaceholder({ altText, visible = true }) {
   return (
     <div
